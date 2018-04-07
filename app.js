@@ -11,7 +11,6 @@ var port = process.env.PORT || 3000;
 
 app.get('/',function(req,res){
     res.send('<html><head></head><body><h1>HELLO</h1></body></html>')
-
 } );
 
 var connection = mysql.createConnection({
@@ -28,10 +27,17 @@ var connection = mysql.createConnection({
     console.log("Connected!");
   });
 
+  connection.query('SELECT * FROM user',
+		function(err, rows) {
+			if(err) console.log("Error");
+            else
+            console.log(rows.id);
+		}
+    );
+    
   htmlController(app);
 
   apiController(app);
-
 
   app.listen(3000);
 
