@@ -1,12 +1,13 @@
 var express = require('express');
 var app = express();
 var mysql = require("mysql");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var ejs = require("ejs");
 var apiController = require('./controllers/apiController');
 var htmlController = require('./controllers/htmlController');
 
-app.use('/.assets', express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/views'));
+
 app.set('view engine', 'ejs');
 var port = process.env.PORT || 3000;
 
@@ -27,7 +28,16 @@ var connection = mysql.createConnection({
   app.use(bodyParser.json());
 
 app.get('/',function(req,res){
-    res.sendFile(__dirname+'/views/index.html');
+  /*  res.sendFile(__dirname+'/views/index.html');*/
+    connection.query('SELECT * FROM user',
+		function(err, rows, fields) {
+			if(err) console.log("Error");
+            else
+            console.log("Hello,"+ " " + rows[0].name);
+            res.send(rows);
+		}
+    );
+
 } );
 
 app.get('/user',function(req,res){
