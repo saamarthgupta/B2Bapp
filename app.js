@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
 var mysql = require("mysql");
-
+var bodyParser = require('body-parser')
+var ejs = require("ejs");
 var apiController = require('./controllers/apiController');
 var htmlController = require('./controllers/htmlController');
 
@@ -9,17 +10,13 @@ app.use('/.assets', express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 var port = process.env.PORT || 3000;
 
-app.get('/',function(req,res){
-    res.send('<html><head></head><body><h1>HELLO</h1></body></html>')
-} );
-
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "1234",
     database  : "b2bc_app"
   });
-  
+
   connection.connect(function(err) {
     if (err) 
     console.log("Not Connected");
@@ -27,11 +24,38 @@ var connection = mysql.createConnection({
     console.log("Connected!");
   });
 
+  app.use(bodyParser.json());
+
+app.get('/',function(req,res){
+    res.sendFile(__dirname+'/views/index.html');
+} );
+
+app.get('/user',function(req,res){
+  res.sendFile(__dirname+'/views/user.html');
+} );
+
+app.get('/userlogin',function(req,res){
+  res.sendFile(__dirname+'/views/ulogin.html');
+} );
+
+app.get('/business',function(req,res){
+  res.sendFile(__dirname+'/views/bus.html');
+} );
+
+app.get('/businesslogin',function(req,res){
+  res.sendFile(__dirname+'/views/blogin.html');
+} );
+
+app.get('/products',function(req,res){
+  res.sendFile(__dirname+'/views/products.html');
+} );
+
+  
   connection.query('SELECT * FROM user',
-		function(err, rows) {
+		function(err, rows, fields) {
 			if(err) console.log("Error");
             else
-            console.log(rows.id);
+            console.log("Hello,"+ " " + rows[0].name);
 		}
     );
     
