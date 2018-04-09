@@ -33,15 +33,16 @@ app.get('/',function(req,res){
 app.post('/search', function(req,res){
   var value = req.body.value;
   console.log(value);
-  
+  value=value[0]+"%";
   connection.query('SELECT * FROM business WHERE name like ?',value,
-		function(err, rows, fields) {
-			if(err) console.log("No Results Found");
-            else
-            {
-              console.log("Hello,"+ " " + rows[0].id);
-              res.render(__dirname+'/views/search.ejs', rows.name,rows.gstin, rows.mobile_no);
-            }
+		function(err, rows) {
+      if(err) 
+        console.log("No Results Found");
+      else
+      {
+        console.log("Hello,"+ " " + rows[0].id);
+        res.render(__dirname+'/views/search.ejs', rows.name,rows.gstin, rows.mobile_no);
+      }
 	});
   
 }
