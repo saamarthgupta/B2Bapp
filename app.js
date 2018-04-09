@@ -26,13 +26,24 @@ var connection = mysql.createConnection({
 
   app.use(bodyParser.json());
 
+  
 app.get('/',function(req,res){
   res.render("index.ejs");
 } );
 app.post('/search', function(req,res){
-  res.render(__dirname+'/views/search.ejs');
   var value = req.body.value;
   console.log(value);
+  
+  connection.query('SELECT * FROM business WHERE name like ?',value,
+		function(err, rows, fields) {
+			if(err) console.log("No Results Found");
+            else
+            {
+              console.log("Hello,"+ " " + rows[0].id);
+              res.render(__dirname+'/views/search.ejs', rows.name,rows.gstin, rows.mobile_no);
+            }
+	});
+  
 }
 );
 
