@@ -3,13 +3,12 @@ var app = express();
 var mysql = require("mysql");
 var bodyParser = require('body-parser');
 var ejs = require("ejs");
-var apiController = require('./controllers/apiController');
-var htmlController = require('./controllers/htmlController');
 
-app.use(express.static(__dirname + '/views'));
 
 app.set('view engine', 'ejs');
 var port = process.env.PORT || 3000;
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -28,56 +27,38 @@ var connection = mysql.createConnection({
   app.use(bodyParser.json());
 
 app.get('/',function(req,res){
-  /*  res.sendFile(__dirname+'/views/index.html');*/
-    connection.query('SELECT * FROM user',
-		function(err, rows, fields) {
-			if(err) console.log("Error");
-            else
-            console.log("Hello,"+ " " + rows[0].name);
-            res.send(rows);
-		}
-    );
-
+  res.render("index.ejs");
 } );
-
-app.get('/search',function(req,res){
-  res.sendFile(__dirname+'/views/search.html');
-} );
+app.post('/search', function(req,res){
+  res.render(__dirname+'/views/search.ejs');
+  var value = req.body.value;
+  console.log(value);
+}
+);
 
 app.get('/user',function(req,res){
-  res.sendFile(__dirname+'/views/user.html');
+  res.render(__dirname+'/views/user.ejs');
 } );
 
 app.get('/userlogin',function(req,res){
-  res.sendFile(__dirname+'/views/ulogin.html');
+  res.render(__dirname+'/views/ulogin.ejs');
 } );
 
 app.get('/business',function(req,res){
-  res.sendFile(__dirname+'/views/business.html');
+  res.render(__dirname+'/views/business.ejs');
 } );
 
 app.get('/businesslogin',function(req,res){
-  res.sendFile(__dirname+'/views/blogin.html');
+  res.render(__dirname+'/views/blogin.ejs');
 } );
 
 app.get('/products',function(req,res){
-  res.sendFile(__dirname+'/views/products.html');
+  res.render(__dirname+'/views/products.ejs');
 } );
 
-  
-  connection.query('SELECT * FROM user',
-		function(err, rows, fields) {
-			if(err) console.log("Error");
-            else
-            console.log("Hello,"+ " " + rows[0].name);
-		}
-    );
-    
-  htmlController(app);
 
-  apiController(app);
-
-  app.listen(3000);
+ 
+  app.listen(port);
 
 
 
