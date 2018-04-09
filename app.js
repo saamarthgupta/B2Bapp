@@ -40,6 +40,10 @@ app.get('/',function(req,res){
 
 } );
 
+app.get('/search',function(req,res){
+  res.sendFile(__dirname+'/views/search.html');
+} );
+
 app.get('/user',function(req,res){
   res.sendFile(__dirname+'/views/user.html');
 } );
@@ -49,7 +53,7 @@ app.get('/userlogin',function(req,res){
 } );
 
 app.get('/business',function(req,res){
-  res.sendFile(__dirname+'/views/bus.html');
+  res.sendFile(__dirname+'/views/business.html');
 } );
 
 app.get('/businesslogin',function(req,res){

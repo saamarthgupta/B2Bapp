@@ -4,14 +4,14 @@
 <h1> Welcome to Business Login Portal </h1> <br>
 <center>
 <h2> LOGIN </h2>
-<form id="bloginform" method="" action="">
+<form id="bloginform" method="" action="/business">
 <input type="text" class="input" placeholder="E-mail" /> 
 <input type="password" class="input" placeholder="Password" />
 <input type="submit" class="loginbutton" value="SIGN IN" />
 </form>
 <br><br><br>
 <h2> SIGN UP </h2>
-<form id="bsignupform" method="" action="">
+<form id="bsignupform" method="" action="/blogin">
 <input type="text" class="input" placeholder="E-mail" /> 
 <input type="password" class="input" placeholder="Password" />
 <input type="text" class="input" placeholder="Name" /> 
@@ -24,8 +24,12 @@
 <input type="text" class="input" placeholder="Category 3" />
 <input type="text" class="input" placeholder="Category 4" />
 <br><br><center>
-<input type="submit" class="loginbutton" value="SIGN UP" /></center>
+<button onclick= "SignUp"><input type="submit" class="loginbutton" value="SIGN UP" /></button></center>
 </form>
 
+<script> function SignUp(){
+	alert("Sign Up Successful! Please Login To Continue");
+}
+</script>
 </body>
 </html>
