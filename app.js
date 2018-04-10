@@ -3,8 +3,8 @@ var app = express();
 var mysql = require("mysql");
 var bodyParser = require('body-parser');
 var ejs = require("ejs");
-
-
+var bus_id = 0;
+var querry;
 app.set('view engine', 'ejs');
 var port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({extended:true}));
@@ -58,18 +58,38 @@ app.get('/userlogin',function(req,res){
   res.render(__dirname+'/views/ulogin.ejs');
 } );
 
-app.get('/business',function(req,res){
-  res.render(__dirname+'/views/business.ejs');
+app.post('/business',function(req,res){
+
+  console.log(req.body.mail,req.body.pass);
+  
+  querry = "idbusiness_login from business_login where email_id = '"+req.body.mail+"' and password = '"+req.body.pass+"'";
+  connection.query("SELECT ?",querry,function(err,rows){
+    if(err)
+      console.log("Error");
+    else
+    {
+      console.log(rows[0]);
+      bus_id = rows[0].idbusiness_login;
+      console.log(bus_id);
+      res.render(__dirname+'/views/business.ejs');
+    }
+  });
+  
+  
 } );
 
 app.get('/businesslogin',function(req,res){
-  res.render(__dirname+'/views/blogin.ejs');
+  res.render(__dirname+'/views/businesslogin.ejs');
+
 } );
 
 app.get('/products',function(req,res){
   res.render(__dirname+'/views/products.ejs');
 } );
 
+app.post('/queries', function(req,res){
+  
+});
 
  
   app.listen(port);
