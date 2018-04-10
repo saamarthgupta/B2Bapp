@@ -14,7 +14,7 @@
     text-align: left;
 }
 
-#table tr:nth-child(even){background-color: #f2f2f2;}
+#table tr:{background-color: #f2f2f2;}
 
 #table tr:hover {background-color: #000000;}
 
@@ -33,29 +33,31 @@ body{
     font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
 }
 
-</style>
+</style>        
     <script src="https://code.jquery.com/jquery-1.11.3.min.js" ></script>
 	<title>
 		Search Results
 	</title>
 </head>
     <body>
-        <p>The Search Results Are:</p>
+        <p>The Search Results for your keyword '<%=tvalue %>' are:</p>
         <br><br>
     <table id="table" >  
         <thead>  
             <tr>  
                 <th> Name </th>  
                 <th> Address </th>
+                <th> Email-ID </th>  
                 <th> Mobile_No </th>  
             </tr>  
         </thead>  
-         <tbody> 
-            <% for (var i=0; i<loadResults.length; i++) { % >
-            <tr>  
-                <td><%= loadResults[i].name%></td>  
-                <td><%= loadResults[i].address%></td>
-                <td><%= loadResults[i].mobile_no%></td>
+         <tbody> <% for(var i = 0;i<loadResults.length;i++) {%>
+                      <tr>  
+                <td><%= loadResults[i].name %></td>  
+                <td><%= loadResults[i].address %></td>
+                <td><%= loadResults[i].email_id %></td>
+                <td><%= loadResults[i].mobile_no %></td>
+
             </tr>
             <% } %>
          </tbody>

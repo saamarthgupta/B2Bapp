@@ -28,11 +28,12 @@ var connection = mysql.createConnection({
 
   
 app.get('/',function(req,res){
-  res.render("index.ejs");
+  res.render("index");
 } );
 
 app.post('/search', function(req,res){
   var value = req.body.value;
+  var tvalue = value;
   console.log(value);
   value=value[0]+"%";
   connection.query('SELECT * FROM business WHERE name like ?',value,
@@ -42,20 +43,23 @@ app.post('/search', function(req,res){
       else
       {
         console.log("Hello,"+ " " + rows[0].id);
-        loadResults=JSON.parse(JSON.stringify(rows))
-        res.render(__dirname+'/views/search.ejs', {
-          loadResults: loadResults
+        loadResults=JSON.parse(JSON.stringify(rows));
+        console.log(loadResults.length + " = length");
+
+        res.render(__dirname+'/views/search', {
+          loadResults: loadResults,
+          tvalue: tvalue
         });
       }
 	});
 });
 
 app.get('/user',function(req,res){
-  res.render(__dirname+'/views/user.ejs');
+  res.render(__dirname+'/views/user');
 } );
 
 app.get('/userlogin',function(req,res){
-  res.render(__dirname+'/views/ulogin.ejs');
+  res.render(__dirname+'/views/ulogin');
 } );
 
 app.post('/business',function(req,res){
