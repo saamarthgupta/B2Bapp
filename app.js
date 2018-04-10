@@ -7,7 +7,7 @@ var ejs = require("ejs");
 
 app.set('view engine', 'ejs');
 var port = process.env.PORT || 3000;
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 var connection = mysql.createConnection({
@@ -48,9 +48,7 @@ app.post('/search', function(req,res){
         });
       }
 	});
-  
-}
-);
+});
 
 app.get('/user',function(req,res){
   res.render(__dirname+'/views/user.ejs');

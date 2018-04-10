@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+    #table{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#table td, #table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#table tr:nth-child(even){background-color: #f2f2f2;}
+
+#table tr:hover {background-color: #ddd;}
+
+#table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js" ></script>
 	<title>
 		Search Results
 	</title>
 </head>
     <body>
+        <p>The Search Results Are:</p>
+        <br><br>
+    </body>
+    </body>
     <table id="table" >  
         <thead>  
             <tr>  
@@ -16,9 +45,9 @@
         </thead>  
          <tbody> 
             <tr>  
-                <td><%= loadResults.name%></td>  
-                <td><%= loadResults.address%></td>
-                <td><%= loadResults.mobile_no%></td>
+                <td><%= loadResults[0].name%></td>  
+                <td><%= loadResults[0].address%></td>
+                <td><%= loadResults[0].mobile_no%></td>
             </tr>
          </tbody>
     </table>   
