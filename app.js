@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "1234",
+    password: "Ritik@1234567890",
     database  : "b2bc_app"
   });
 
@@ -42,7 +42,10 @@ app.post('/search', function(req,res){
       else
       {
         console.log("Hello,"+ " " + rows[0].id);
-        res.render(__dirname+'/views/search.ejs', rows.name,rows.gstin, rows.mobile_no);
+        loadResults=JSON.parse(JSON.stringify(rows))
+        res.render(__dirname+'/views/search.ejs', {
+          loadResults: loadResults
+        });
       }
 	});
   
