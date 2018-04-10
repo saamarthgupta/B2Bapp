@@ -49,6 +49,7 @@ body{
                 <th> Address </th>
                 <th> Email-ID </th>  
                 <th> Mobile_No </th>  
+                <th> Contact</th>
             </tr>  
         </thead>  
          <tbody> <% for(var i = 0;i<loadResults.length;i++) {%>
@@ -57,7 +58,10 @@ body{
                 <td><%= loadResults[i].address %></td>
                 <td><%= loadResults[i].email_id %></td>
                 <td><%= loadResults[i].mobile_no %></td>
-
+                <td><form method="post" action="/query">
+                    <input type="radio" name= <%=loadResults[i].id %>  value="Contact" />
+                    </form>
+                    </td>    
             </tr>
             <% } %>
          </tbody>

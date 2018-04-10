@@ -82,6 +82,10 @@ app.post('/business',function(req,res){
   
 } );
 
+app.post('/query', function(req,res){
+  console.log(req.body.value);
+})
+
 app.get('/businesslogin',function(req,res){
   res.render(__dirname+'/views/businesslogin.ejs');
 

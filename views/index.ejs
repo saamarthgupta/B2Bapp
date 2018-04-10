@@ -34,7 +34,7 @@ a{
 	margin-top:15px;
 }
 
-.loginbutton{
+.searchbutton{
 	background-color:#ffdd00;
 	border-radius:5px/5px;
 	-webkit-border-radius:5px/5px;
@@ -56,12 +56,12 @@ a{
 	cursor: pointer;
 }
 
-.loginbutton:active {
+.searchbutton:active {
 	position:relative;
 	top:1px;
 }
 
-.loginbutton:hover{
+.searchbutton:hover{
 	background-color:#e5bf05;
 }
 	</style>
@@ -69,15 +69,15 @@ a{
 		<title>Welcome to B2B app!</title>
 	</head>
 	<body>
-		Hello and Welcome to B2B app!
+		<h1 font-style="Calibri">Hello and Welcome to B2B app!<h1>
 <br>
 
-<a href  = 'businesslogin'><p> Business Login </p></a>
+<a href  = 'businesslogin'><p> <strong><u>Business Login </u></strong></p></a>
 <br><br>
 <p>Search</p><form id="searchbar" method="post" action="/search">
 <input type="text" name = 'value' class="input" placeholder="Products and Businesses" /> 
 
-<input type="submit" class="searchbutton" id="loginbutton" value="GO!" />
+<input type="submit" class="searchbutton" value="GO!" />
 </form>
 
 <br>
