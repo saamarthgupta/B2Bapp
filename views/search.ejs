@@ -33,6 +33,36 @@ body{
     font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
 }
 
+.searchbutton{
+	background-color:#ffdd00;
+	border-radius:5px/5px;
+	-webkit-border-radius:5px/5px;
+	-moz-border-radius:5px/5px;
+	color:#333;
+	display:inline-block;
+	font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	width:100px;
+	text-align:center;
+	line-height:30px;
+	text-decoration:none;
+	height:30px;
+	margin-top:5px;
+	margin-bottom:5px;
+	border:none;
+	outline:0;
+	cursor: pointer;
+}
+
+.searchbutton:active {
+	position:relative;
+	top:1px;
+}
+
+.searchbutton:hover{
+	background-color:#e5bf05;
+}
 </style>        
     <script src="https://code.jquery.com/jquery-1.11.3.min.js" ></script>
 	<title>
@@ -46,11 +76,11 @@ body{
     <table id="table" >  
         <thead>  
             <tr>  
-                <th> Name </th>  
-                <th> Address </th>
-                <th> Email-ID </th>  
-                <th> Mobile_No </th>  
-                <th> Contact</th>
+                <th>  <center>Name </th>  </center>
+                <th><center>Address </th></center>
+                <th><center>Email-ID </th>  </center>
+                <th> <center>Mobile_No</center> </th>  
+                <th> <center>Contact </center></th>
             </tr>  
         </thead>  
          <tbody> <% for(var i = 0;i<loadResults.length;i++) {%>
@@ -61,7 +91,7 @@ body{
                 <td><%= loadResults[i].mobile_no %></td>
                 <td><form id="sendquery" method="post" action="/query">
                     <input type = "hidden" name = "id" value = <%= loadResults[i].id %>/>
-                    <input type="submit" class="searchbutton" value="Contact" />
+                    <center><input type="submit" class="searchbutton" value="Contact" /></center>
                     
                     </form>
                     </td>    

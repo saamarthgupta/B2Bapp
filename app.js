@@ -4,7 +4,7 @@ var mysql = require("mysql");
 var bodyParser = require('body-parser');
 var ejs = require("ejs");
 var bus_id;
-var st=0;
+
 app.set('view engine', 'ejs');
 var port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({extended:true}));
@@ -93,24 +93,21 @@ var qdetails ;
 var loadResults;
 function callq2(bus_id)
 {
-  console.log(connection.query("SELECT * FROM business WHERE id = ?",bus_id, function(err,rows){
+  connection.query("SELECT * FROM business WHERE id = ?",bus_id, function(err,rows){
   if(err)
     console.log("DB Error");    
     console.log(rows[0].id + " AND " + bus_id);
     loadResults = JSON.parse(JSON.stringify(rows));
     console.log(loadResults[0]);  
-  }));
+  });
 }
 function callq3(bus_id)
 {
-  console.log(connection.query("SELECT * FROM queries WHERE id_bus = ?",bus_id, function(err,rows){
+  connection.query("SELECT * FROM queries WHERE id_bus = ?",bus_id, function(err,rows){
     if(err)
       console.log("DB Error");
     qdetails =  JSON.parse(JSON.stringify(rows));
-    console.log(qdetails[0]);
-    st=1;
-    console.log("st = "+ st);
-  }));
+  });
 }
 app.post('/business',function(req,res){
   
@@ -125,7 +122,7 @@ app.post('/business',function(req,res){
       bus_id = rows[0].idbusiness_login;
       callq2(bus_id);
       callq3(bus_id);
-      console.log("First Loop BID = "+bus_id);
+      console.log("First Loop BID = "+bus_id);  
       function render()
       {
         console.log("Rendering Page");

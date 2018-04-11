@@ -1,10 +1,146 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Welcome <%= loadResults[0].name %> </title>
+    <style>
+    #table{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.input{
+	width:150px;
+    padding: 25px 10px;
+    font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+	background: #f5f5f5;
+	border:none;
+	border-radius: 5px;
+	color: #333;
+	font-size: 14px;
+	height: 20px;
+	margin-top:2px;
+	align:center;
+}
+
+textarea{
+	width:150px;
+    padding:25px 5px;
+	align: center;
+    font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+	background: #f5f5f5;
+	border:none;
+	border-radius: 5px;
+	color: #333;
+	font-size: 14px;
+	height: 20px;
+}
+
+.searchbutton{
+	background-color:#ffdd00;
+	border-radius:5px/5px;
+	-webkit-border-radius:5px/5px;
+	-moz-border-radius:5px/5px;
+	color:#333;
+	display:inline-block;
+	font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	width:100px;
+	text-align:center;
+	line-height:30px;
+	text-decoration:none;
+	height:50px;
+	margin-top:5px;
+	margin-bottom:5px;
+	border:none;
+	outline:0;
+	cursor: pointer;
+}
+
+#table td, #table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#table tr:{background-color: #f2f2f2;}
+
+#table tr:hover {background-color: #000000;}
+
+#table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+body{
+    background-color:#2c3335;
+    color:#f5f5f5;
+    text-align:center;
+    font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+}
+
+</style>        
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js" ></script>
+	<title>
+		Welcome <%= loadResults[0].name %>
+	</title>
 </head>
+
 <body>
 Welcome M/S <%= loadResults[0].name %> : 
+<p>Your Details are : </p>
+<table id = 'table'>
+	<thead>  
+			<tr>  
+				<th>Name </th>  
+				<th>Address </th>
+				<th>Email-ID </th>  
+				<th>Mobile_No </th>  
+				<th>GSTIN</th>
+			</tr>  
+		</thead>  
+		<tbody>
+		  <tr>  
+			<td><%= loadResults[0].name %></td>  
+			<td><%= loadResults[0].address %></td>
+			<td><%= loadResults[0].email_id %></td>
+			<td><%= loadResults[0].mobile_no %></td>
+			<td><%= loadResults[0].gstin %></td>
+		</tr>
+		</tbody>
+	</table>
+	<p> You have received the Following Queries </p>
+<table id = 'table'>
+	<thead>
+		<tr>
+			<th>Name </th>  
+			<th>Mobile Number </th>
+			<th>Email-ID </th>  
+			<th>Requirement </th>  
+			<th>Quantity</th>
+			<th>Expected Price</th>
+			<th> Contact</th>
+		</tr>
+	</thead>
+	<tbody>
+		<td><%= qdetails[0].name %></td>  
+		<td><%= qdetails[0].mobile %></td>
+		<td><%= qdetails[0].email %></td>
+		<td><%= qdetails[0].require %></td>
+		<td><%= qdetails[0].quantity %></td>
+		<td><%= qdetails[0].price %></td>
+		<td><form action="mailto:<%= qdetails[0].email %>" method="GET">
+			<input name="subject" type="text" class="input" />
+			<textarea name="body" ></textarea>
+			<input type="submit" value="Send" class="searchbutton" />
+			</form>
+		</td>
+	</tbody>
+
+</table>
+
 </body>
 </html>
