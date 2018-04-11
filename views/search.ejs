@@ -70,7 +70,7 @@ body{
 	</title>
 </head>
     <body>
-        <a href = '/'><img src = 'home.png'></a>
+        <a href = '/'><img src = 'home.png' alt = "Home" align = right width = 50 height = 50 ></a>
         <p>The Search Results for your keyword '<%=tvalue %>' are:</p>
         <br><br>
     <table id="table" >  
@@ -92,7 +92,6 @@ body{
                 <td><form id="sendquery" method="post" action="/query">
                     <input type = "hidden" name = "id" value = <%= loadResults[i].id %>/>
                     <center><input type="submit" class="searchbutton" value="Contact" /></center>
-                    
                     </form>
                     </td>    
             </tr>

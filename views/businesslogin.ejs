@@ -65,10 +65,11 @@ a{
 	background-color:#e5bf05;
 }
 </style>
+<title> Business Login Page</title>
 	</head>
 <body>
-<a href = '/'><p><u> Home</u> </p></a>
-<h1> Welcome to Business Login Portal </h1> <br>
+		<a href = '/'><img src = 'home.png' alt = "Home" align = right width = 50 height = 50></a>
+<h1> Welcome to Business Login Portal </h1>
 <center>
 <h2> LOGIN </h2>
 <form id="loginform" method="post" action="/business">
@@ -78,18 +79,18 @@ a{
 </form>
 <br><br><br>
 <h2> SIGN UP </h2>
-<form id="bsignupform" method="post" action="/business">
-<input type="text" class="input" placeholder="E-mail" /> 
-<input type="password" class="input" placeholder="Password" />
-<input type="text" class="input" placeholder="Name" /> 
-<input type="text" class="input" placeholder="Address" />
-<input type="text" class="input" placeholder="GSTIN" />
-<input type="text" class="input" placeholder="Mobile Number " />
+<form id="bsignupform" method="post" action="/subusiness">
+<input name = "mail" type="text" class="input" placeholder="E-mail" /> 
+<input name = "pass" type="password" class="input" placeholder="Password" />
+<input name = "name" type="text" class="input" placeholder="Name" /> 
+<input name = "address" type="text" class="input" placeholder="Address" />
+<input name = "gstin" type="text" class="input" placeholder="GSTIN" />
+<input name = "mobile" type="text" class="input" placeholder="Mobile Number " />
 <br><br>
-<input type="text" class="input" placeholder="Category 1" />
-<input type="text" class="input" placeholder="Category 2" />
-<input type="text" class="input" placeholder="Category 3" />
-<input type="text" class="input" placeholder="Category 4" />
+<input name = "cat1" type="text" class="input" placeholder="Category 1" />
+<input name = "cat2" type="text" class="input" placeholder="Category 2" />
+<input name = "cat3" type="text" class="input" placeholder="Category 3" />
+<input name = "cat4" type="text" class="input" placeholder="Category 4" />
 <br><br><center>
 <button onclick= "SignUp"><input type="submit" class="loginbutton" value="SIGN UP" /></button></center>
 </form>

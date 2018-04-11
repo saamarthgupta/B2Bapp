@@ -126,18 +126,22 @@ Welcome M/S <%= loadResults[0].name %> :
 		</tr>
 	</thead>
 	<tbody>
-		<td><%= qdetails[0].name %></td>  
-		<td><%= qdetails[0].mobile %></td>
-		<td><%= qdetails[0].email %></td>
-		<td><%= qdetails[0].require %></td>
-		<td><%= qdetails[0].quantity %></td>
-		<td><%= qdetails[0].price %></td>
-		<td><form action="mailto:<%= qdetails[0].email %>" method="GET">
-			<input name="subject" type="text" class="input" />
-			<textarea name="body" ></textarea>
-			<input type="submit" value="Send" class="searchbutton" />
+			<% for(var i = 0;i<qdetails.length;i++) {%>
+		<tr> 
+		<td><%= qdetails[i].name %></td>  
+		<td><%= qdetails[i].mobile %></td>
+		<td><%= qdetails[i].email %></td>
+		<td><%= qdetails[i].require %></td>
+		<td><%= qdetails[i].quantity %></td>
+		<td><%= qdetails[i].price %></td>
+		<td><form action="mailto:<%= qdetails[i].email %>" method="GET">
+			<input name="subject" type="text" class="input" placeholder ="Subject" />
+			<input name = 'textarea' class = "input" placeholder = "Message"/>
+			<input type="submit" value="Send" class="searchbutton"  />
 			</form>
 		</td>
+		</tr>
+		<% } %>
 	</tbody>
 
 </table>
