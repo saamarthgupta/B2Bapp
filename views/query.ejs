@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    #table{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#table td, #table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#table tr:{background-color: #f2f2f2;}
+
+#table tr:hover {background-color: #000000;}
+
+#table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+body{
+    background-color:#2c3335;
+    color:#f5f5f5;
+    text-align:center;
+    font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+}
+
+</style>        
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js" ></script>
+	<title>
+		Send a Query to <%= loadResults[0].name %>
+	</title>
+</head>
+    <body>
+        <p> You have Selected <%= loadResults[0].name %> </p>
+        <p> Business Details </p>
+        <table id = 'table'>
+                <thead>  
+                        <tr>  
+                            <th>Business Name </th>  
+                            <th>Business Address </th>
+                            <th>Business Email-ID </th>  
+                            <th>Business Mobile_No </th>  
+                            <th>Business GSTIN</th>
+                        </tr>  
+                    </thead>  
+                    <tbody>
+                      <tr>  
+                        <td><%= loadResults[0].name %></td>  
+                        <td><%= loadResults[0].address %></td>
+                        <td><%= loadResults[0].email_id %></td>
+                        <td><%= loadResults[0].mobile_no %></td>
+                        <td><%= loadResults[0].gstin %></td>
+                    </tr>
+                    </tbody>
+                </table>
+        <script>
+        function msg() {
+            alert("Your Query has been logged Successfully! Redirecting you to Home Page Now!");
+        }
+        </script>
+        <p> Send a Query NOW : </p>
+        <p> Please Enter Your Details Below : </p>
+        <form id="squery" method="post" action="/sendQuery">
+            <input type="hidden" name = "bus_id" value = <%= loadResults[0].id %> > 
+            <input type="text" name="user_name" class="input" placeholder="Name"/>
+            <input type="text" name="user_mail" class="input" placeholder="Email-ID"/>
+            <input type="text" name="mobile" class="input" placeholder="Mobile_No"/>
+            <input type="text" name="requirement" class="input" placeholder="Requirement"/>
+            <input type="text" name="quantity" class="input" placeholder="Quantity"/>
+            <input type="text" name="e_price" class="input" placeholder="Expected Price"/>
+            <input type="submit" class="submitbutton" value="Send Query" onclick="msg()" />
+        </form>        
+
+        </table>

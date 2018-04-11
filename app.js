@@ -3,17 +3,17 @@ var app = express();
 var mysql = require("mysql");
 var bodyParser = require('body-parser');
 var ejs = require("ejs");
-var bus_id = 0;
-var querry;
+var bus_id;
+var st=0;
 app.set('view engine', 'ejs');
 var port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-
+app.use( express.static( "public" ) );
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Ritik@1234567890",
+    password: "1234",
     database  : "b2bc_app"
   });
 
@@ -42,10 +42,9 @@ app.post('/search', function(req,res){
         console.log("No Results Found");
       else
       {
-        console.log("Hello,"+ " " + rows[0].id);
+        
         loadResults=JSON.parse(JSON.stringify(rows));
-        console.log(loadResults.length + " = length");
-
+        
         res.render(__dirname+'/views/search', {
           loadResults: loadResults,
           tvalue: tvalue
@@ -54,37 +53,95 @@ app.post('/search', function(req,res){
 	});
 });
 
-app.get('/user',function(req,res){
-  res.render(__dirname+'/views/user');
-} );
-
-app.get('/userlogin',function(req,res){
-  res.render(__dirname+'/views/ulogin');
-} );
-
-app.post('/business',function(req,res){
-
-  console.log(req.body.mail,req.body.pass);
+app.post('/query', function(req,res){
+  console.log("ID = "+ req.body.id);
+  var id=req.body.id;
   
-  querry = "idbusiness_login from business_login where email_id = '"+req.body.mail+"' and password = '"+req.body.pass+"'";
-  connection.query("SELECT ?",querry,function(err,rows){
+  connection.query('SELECT * FROM business WHERE id = ?',id,function(err,rows){
     if(err)
-      console.log("Error");
+      console.log("No Results Found.");
     else
     {
-      console.log(rows[0]);
-      bus_id = rows[0].idbusiness_login;
-      console.log(bus_id);
-      res.render(__dirname+'/views/business.ejs');
+      loadResults = JSON.parse(JSON.stringify(rows));
+      res.render(__dirname + "/views/query",{
+        loadResults : loadResults
+      });
     }
   });
+});
+
+app.post('/sendQuery', function(req,res){
+  var result = {
+    id_bus  : req.body.bus_id,
+    name : req.body.user_name,
+    email : req.body.user_mail,
+    mobile : req.body.mobile,
+    require : req.body.requirement,
+    quantity : req.body.quantity,
+    price : req.body.e_price,
+  };
+  console.log(result);
+
+  connection.query("INSERT INTO queries SET ? ",result, function(err,res){
+  if(err) console.log("Error, Please Try Again.");
+  else
+    console.log('Last record insert id:', res.idqueries);
+  });
+  res.render(__dirname + "/views/index");
+});
+var qdetails ;
+var loadResults;
+function callq2(bus_id)
+{
+  console.log(connection.query("SELECT * FROM business WHERE id = ?",bus_id, function(err,rows){
+  if(err)
+    console.log("DB Error");    
+    console.log(rows[0].id + " AND " + bus_id);
+    loadResults = JSON.parse(JSON.stringify(rows));
+    console.log(loadResults[0]);  
+  }));
+}
+function callq3(bus_id)
+{
+  console.log(connection.query("SELECT * FROM queries WHERE id_bus = ?",bus_id, function(err,rows){
+    if(err)
+      console.log("DB Error");
+    qdetails =  JSON.parse(JSON.stringify(rows));
+    console.log(qdetails[0]);
+    st=1;
+    console.log("st = "+ st);
+  }));
+}
+app.post('/business',function(req,res){
   
-  
-} );
+  connection.query("SELECT idbusiness_login FROM business_login WHERE email_id = ? AND password = ?",[req.body.mail,req.body.pass],function(err,rows){
+    if(err)
+    { 
+       console.log("Error in Getting Business ID");
+       res.render(__dirname+'/views/businesslogin.ejs');
+    }
+    else
+    {
+      bus_id = rows[0].idbusiness_login;
+      callq2(bus_id);
+      callq3(bus_id);
+      console.log("First Loop BID = "+bus_id);
+      function render()
+      {
+        console.log("Rendering Page");
+        res.render(__dirname+'/views/business.ejs',{
+          loadResults : loadResults,
+          qdetails : qdetails
+          });
+      }
+      setTimeout(render,1000);
+    }
+  });       
+});
 
 app.post('/query', function(req,res){
   console.log(req.body.value);
-})
+});
 
 app.get('/businesslogin',function(req,res){
   res.render(__dirname+'/views/businesslogin.ejs');
@@ -94,10 +151,6 @@ app.get('/businesslogin',function(req,res){
 app.get('/products',function(req,res){
   res.render(__dirname+'/views/products.ejs');
 } );
-
-app.post('/queries', function(req,res){
-  
-});
 
  
   app.listen(port);

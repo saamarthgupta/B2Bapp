@@ -40,6 +40,7 @@ body{
 	</title>
 </head>
     <body>
+        <a href = '/'><img src = 'home.png'></a>
         <p>The Search Results for your keyword '<%=tvalue %>' are:</p>
         <br><br>
     <table id="table" >  
@@ -58,8 +59,10 @@ body{
                 <td><%= loadResults[i].address %></td>
                 <td><%= loadResults[i].email_id %></td>
                 <td><%= loadResults[i].mobile_no %></td>
-                <td><form method="post" action="/query">
-                    <input type="radio" name= <%=loadResults[i].id %>  value="Contact" />
+                <td><form id="sendquery" method="post" action="/query">
+                    <input type = "hidden" name = "id" value = <%= loadResults[i].id %>/>
+                    <input type="submit" class="searchbutton" value="Contact" />
+                    
                     </form>
                     </td>    
             </tr>
