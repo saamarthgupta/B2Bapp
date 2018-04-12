@@ -13,7 +13,7 @@ app.use( express.static( "public" ) );
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "1234",
+    password: "Ritik@1234567890",
     database  : "b2bc_app"
   });
 
@@ -147,65 +147,63 @@ app.get('/businesslogin',function(req,res){
   res.render(__dirname+'/views/businesslogin.ejs');
 } );
 
-function getbus_id(x)
-{
-  connection.query("SELECT id FROM business WHERE email_id = ? ", x, function(err,rows){
-    if(err)
-    console.log("Error Found");
-    else
-    {
-      bus_id = JSON.parse(JSON.stringify(rows));
-      bus_id = qdetails[0].id;
-    }
-  });
-}
-function newid(x)
-{
-  connection.query("INSERT INTO business_login SET ? ",x,function(err,rows){
-    if(err)
-    {
-      console.log("Error");
-    }
-    else
-    {
-      console.log(x.idbusiness_login + " Updated Successfully!");
-    }
-  });
-}
+var bus_id;
 
 app.post('/subusiness',function(req,res){
-  var signup = {
-    name : req.body.name,
-    address : req.body.address,
-    email_id  : req.body.mail,
-    gstin : req.body.gstin,
-    mobile_no : req.body.mobile,
-    cat1 : req.body.cat1,
-    cat2 : req.body.cat2,
-    cat3 : req.body.cat3,
-    cat4 : req.body.cat4
+  var signup={
+    name: req.body.name,
+    email_id: req.body.mail,
+    address: req.body.address,
+    gstin: req.body.gstin,
+    mobile_no: req.body.mobile,
+    cat1: req.body.cat1,
+    cat2: req.body.cat2,
+    cat3: req.body.cat3,
+    cat4: req.body.cat4
   };
-  connection.query("INSERT INTO business SET ? ", signup, function(err,rows){
+  var mail = req.body.mail;
+  var pass = req.body.pass;
+  connection.query("INSERT INTO business SET ?", signup, function(err,rows){
     if(err)
-      console.log("Error Found.");
+      console.log(" hi Error Found.");
     else
     {
       console.log("Query Inserted.");
+      connection.query("SELECT id FROM business WHERE email_id = ? ", req.body.mail, function(err,rows){
+      if(err)
+      console.log("Error Found");
+        else
+        {
+          bus_id = JSON.parse(JSON.stringify(rows));
+          bus_id = rows[0].id;
+          console.log(bus_id);
+          var loc = {
+            idbusiness_login: bus_id,
+            email_id: mail,
+            password: pass
+          }; 
+          
+          connection.query("INSERT INTO business_login SET ? ",loc,function(err,rows){
+            if(err)
+            {
+              console.log("Error");
+            }
+            else
+            {
+              console.log(loc.idbusiness_login + " Updated Successfully!");
+            }
+          });
+        }
+      });
       
-      setTimeout(getbus_id(req.body.mail),200); 
-      var loc = {
-        idbusiness_login : bus_id,
-        email_id : req.body.mail,
-        password : req.body.password
-      }; 
-      setTimeout(newid(loc),200);
     }
   });
+
   function SendData()
   {
     res.send("Updated in Database!");
   }
-  setTimeout(SendData,200);
+  setTimeout(SendData,1000);
 } );
 
  
