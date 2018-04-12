@@ -13,7 +13,7 @@ app.use( express.static( "public" ) );
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Ritik@1234567890",
+    password: "1234",
     database  : "b2bc_app"
   });
 
@@ -201,9 +201,9 @@ app.post('/subusiness',function(req,res){
 
   function SendData()
   {
-    res.send("Updated in Database!");
+    res.redirect("/businesslogin");
   }
-  setTimeout(SendData,1000);
+  setTimeout(SendData,1500);
 } );
 
  
